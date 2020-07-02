@@ -40,7 +40,7 @@ jobs:
           done
 
       - name: Release
-        run: echo 'Release is $RELEASE_TYPE
+        run: echo Release is $RELEASE_TYPE
         id: releaseStep
         env:
           RELEASE_TYPE: patch
