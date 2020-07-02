@@ -22,8 +22,8 @@ jobs:
 
       - name: Build
         run: npm run clean && npm run build
-
-    - name: array
+        
+      - name: array
         id: arr
         run: |
           for i in ${{ github.event.labels }}
@@ -38,7 +38,6 @@ jobs:
               echo '::set-env name=RELEASE_TYPE::patch'
             fi
           done
-    
 
       - name: Release
         run: npm run release:${{ RELEASE_TYPE }}
