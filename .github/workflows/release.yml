@@ -1,0 +1,47 @@
+name: Release
+on:
+  push:
+    branches: [master]
+jobs:
+  release:
+    name: Release
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run clean && npm run build
+
+    - name: array
+        id: arr
+        run: |
+          for i in ${{ github.event.labels }}
+          do
+            if [[ $i == 'major' ]]; then
+              echo '::set-env name=RELEASE_TYPE::major'
+            fi
+            if [[ $i == 'minor' ]]; then
+              echo '::set-env name=RELEASE_TYPE::minor'
+            fi
+            if [[ $i == 'patch' ]]; then
+              echo '::set-env name=RELEASE_TYPE::patch'
+            fi
+          done
+    
+
+      - name: Release
+        run: npm run release:${{ RELEASE_TYPE }}
+        id: releaseStep
+        env:
+          RELEASE_TYPE: patch
