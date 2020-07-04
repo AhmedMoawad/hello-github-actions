@@ -15,8 +15,6 @@ jobs:
       - name: array
         id: arr
         run: |
-          ar = ${{ github.event.pull_request.labels }}
-          echo "${ar[*]}"
           for i in ${{ github.event.pull_request.labels }}
           do
             echo label name is $i
