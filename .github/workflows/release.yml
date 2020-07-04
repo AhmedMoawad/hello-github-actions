@@ -15,7 +15,7 @@ jobs:
       - name: array
         id: arr
         run: |
-          for i in "$(${{ github.event.pull_request.labels }})"
+          for i in ${{ toJson(github.event.pull_request.labels) }}
           do
             echo label name is $i
             if [[ $i == 'major' ]]; then
