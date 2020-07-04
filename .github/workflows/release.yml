@@ -15,9 +15,8 @@ jobs:
       - name: Release Type
         id: minor
         run: |
-            isMinor = ${{ contains(github.event.pull_request.labels.*.name, 'minor') }}
-            echo Result is $isMinor
-            if [[ $isMinor ]]; then
+            isMinor=${{ contains(github.event.pull_request.labels.*.name, 'minor') }}
+            if [[ $isMinor = "true" ]]; then
               echo '::set-env name=RELEASE_TYPE::minor'
             fi
 
