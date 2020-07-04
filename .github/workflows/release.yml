@@ -1,7 +1,7 @@
 name: Release
 on:
-   pull_request:
-    types: [closed]
+   push:
+    branches: [master]
 jobs:
   release:
     name: Release
@@ -18,6 +18,14 @@ jobs:
             isMinor=${{ contains(github.event.pull_request.labels.*.name, 'minor') }}
             if [[ $isMinor = "true" ]]; then
               echo '::set-env name=RELEASE_TYPE::minor'
+            fi
+            isMajor=${{ contains(github.event.pull_request.labels.*.name, 'major') }}
+            if [[ $isMajor = "true" ]]; then
+              echo '::set-env name=RELEASE_TYPE::major'
+            fi
+            isPatch=${{ contains(github.event.pull_request.labels.*.name, 'patch') }}
+            if [[ $isPatch = "true" ]]; then
+              echo '::set-env name=RELEASE_TYPE::patch'
             fi
 
       - name: Release
