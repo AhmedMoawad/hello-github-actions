@@ -12,22 +12,14 @@ jobs:
         with:
           fetch-depth: 0
         
-      - name: array
-        id: arr
+      - name: Release Type
+        id: minor
         run: |
-          echo "${${{ toJson(github.event.pull_request.labels.*.name) }}}" | jq -c '.[]' | while read i;
-          do
-            echo label name is $i
-            if [[ $i == "major" ]]; then
-              echo '::set-env name=RELEASE_TYPE::major'
-            fi
-            if [[ $i == "minor" ]]; then
+            isMinor = ${{ contains(github.event.pull_request.labels.*.name, 'minor') }}
+            echo Result is $isMinor
+            if [[ $isMinor ]]; then
               echo '::set-env name=RELEASE_TYPE::minor'
             fi
-            if [[ $i == "patch" ]]; then
-              echo '::set-env name=RELEASE_TYPE::patch'
-            fi
-          done
 
       - name: Release
         run: echo Release is $RELEASE_TYPE
