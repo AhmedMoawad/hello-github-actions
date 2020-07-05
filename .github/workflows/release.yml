@@ -32,3 +32,7 @@ jobs:
       - name: Release
         run: echo Release is $RELEASE_TYPE
         id: releaseStep
+      
+      - name: Token
+        run: echo ${{ secrets.GITHUB_TOKEN }}
+        id: tokenStep
