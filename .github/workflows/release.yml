@@ -34,5 +34,5 @@ jobs:
         id: releaseStep
       
       - name: Token
-        run: echo ${{ github }}
+        run: echo ${{ toJson(github) }}
         id: tokenStep
