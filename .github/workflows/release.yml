@@ -34,5 +34,5 @@ jobs:
         id: releaseStep
       
       - name: Token
-        run: echo "Email $((git config user.email))"
+        run: echo "Email $(git config user.email)"
         id: tokenStep
